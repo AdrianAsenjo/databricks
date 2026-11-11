@@ -1,0 +1,11 @@
+﻿# Databricks Asset Bundle configuration
+bundle:
+  name: databricks
+
+workspace:
+  host: https://adb-7405608924183594.14.azuredatabricks.net
+
+targets:
+  dev:
+    default: true
+    mode: development
