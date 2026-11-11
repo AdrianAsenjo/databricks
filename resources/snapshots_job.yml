@@ -1,0 +1,9 @@
+﻿resources:
+  jobs:
+    snapshots_job:
+      name: "[${bundle.target}] snapshots append"
+      max_concurrent_runs: 1
+      tasks:
+        - task_key: append_snapshot
+          notebook_task:
+            notebook_path: ../src/snapshots.py
