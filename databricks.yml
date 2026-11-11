@@ -2,6 +2,9 @@
 bundle:
   name: databricks
 
+include:
+  - resources/*.yml
+
 workspace:
   host: https://adb-7405608924183594.14.azuredatabricks.net
 
