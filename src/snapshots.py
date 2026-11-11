@@ -1,5 +1,8 @@
-﻿# Databricks notebook source
-# COMMAND ----------
+# Databricks notebook source
+# /// script
+# [tool.databricks.environment]
+# environment_version = "6"
+# ///
 # MAGIC %sql
 # MAGIC CREATE TABLE IF NOT EXISTS datafact.data_model.snapshots (
 # MAGIC   execution_timestamp TIMESTAMP NOT NULL
@@ -7,6 +10,7 @@
 # MAGIC USING DELTA
 
 # COMMAND ----------
+
 # MAGIC %sql
 # MAGIC WITH execution AS (
 # MAGIC   SELECT current_timestamp() AS execution_timestamp
