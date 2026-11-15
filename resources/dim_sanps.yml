@@ -1,9 +1,9 @@
 resources:
   jobs:
-    snapshots_job:
+    dim_sanps_job:
       name: "[${bundle.target}] dim_sanps"
       max_concurrent_runs: 1
       tasks:
-        - task_key: append_snapshot
+        - task_key: run_dim_sanps
           notebook_task:
             notebook_path: ../src/dim_sanps.py
