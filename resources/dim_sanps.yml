@@ -6,4 +6,4 @@ resources:
       tasks:
         - task_key: run_dim_sanps
           notebook_task:
-            notebook_path: ../src/dim_sanps.py
+            notebook_path: ../src/dim_sanps.ipynb
