@@ -149,10 +149,22 @@ git status --short
 
 **Por qué:** revisar el cambio y confirmar que el workflow era el único archivo modificado. En la primera revisión, antes de preparar la PR, el cambio estaba local y sin commit ni push. No se ejecutó `bundle validate`, `bundle deploy` ni otro test desde esta sesión.
 
+### Commit y push de la rama
+
+```powershell
+git add .github/workflows/deploy-databricks-dev.yml GITHUB_ACTIONS_SETUP.md
+git diff --cached --stat
+git diff --cached -- .github/workflows/deploy-databricks-dev.yml
+git status --short --branch
+git commit -m "Fix Databricks dev deployment workflow"
+git -c http.sslBackend=schannel push -u origin fix/databricks-dev-deploy
+```
+
+**Por qué y resultado:** se incluyeron en la PR solo el workflow y este documento. El commit `7ed5c78` se creó en `fix/databricks-dev-deploy` y la rama se subió a `origin`. `git fetch origin` primero falló por el certificado SSL local; el fetch y el push con `http.sslBackend=schannel` funcionaron con validación TLS normal. GitHub devolvió el enlace para crear la PR. La PR aún requiere pulsar **Create pull request** en GitHub.
 ## Qué falta para probar
 
 1. Confirmar que el OAuth secret compartido por error quedó revocado y que el valor actual de `DATABRICKS_CLIENT_SECRET` en GitHub es el nuevo secreto.
-2. Completar el commit y push de la rama `fix/databricks-dev-deploy`, y crear la PR. Después del merge a `main`, el trigger `push` ejecutará el workflow.
+2. Crear la PR desde la rama ya subida `fix/databricks-dev-deploy` hacia `main`. El push de esta rama por sí solo no activa el workflow porque el trigger es `push` a `main`; tras el merge, sí se ejecutará.
 3. Revisar el run en la pestaña Actions. Si falla por autorización, conceder al service principal los permisos de workspace/job y permisos Unity Catalog que requiera el job; los scopes OAuth limitan las APIs disponibles, pero no conceden permisos sobre los recursos de Databricks.
 
 ## Referencias oficiales
